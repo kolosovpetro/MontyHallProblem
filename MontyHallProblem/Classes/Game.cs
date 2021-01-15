@@ -25,11 +25,14 @@ namespace MontyHallProblem.Classes
             GameCount = gameCount;
         }
 
-        IDoor IGame.ChooseDoor(int doorIndex)
+        public IDoor ChooseDoor(int doorIndex)
         {
             if (doorIndex < 0 || doorIndex > 2)
                 throw new InvalidOperationException($"Door {doorIndex} doesn't exist.");
 
+            if (_doors[doorIndex].DoorState == State.Opened)
+                throw new InvalidOperationException("Door is already opened by speaker.");
+            
             _doors[doorIndex].DoorState = State.Chosen;
             return _doors[doorIndex];
         }
