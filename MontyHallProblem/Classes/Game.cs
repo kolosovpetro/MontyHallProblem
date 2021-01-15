@@ -30,7 +30,7 @@ namespace MontyHallProblem.Classes
 
             if (_doors[doorIndex].DoorState == State.Opened)
                 throw new InvalidOperationException("Door is already opened by speaker.");
-            
+
             _doors[doorIndex].DoorState = State.Chosen;
             return _doors[doorIndex];
         }
@@ -45,16 +45,8 @@ namespace MontyHallProblem.Classes
 
         public void ResetGame()
         {
-            ResetState();
+            _doors.ForEach(x => x.DoorState = State.Stateless);
             _doors = _doors.OrderBy(x => new Random().Next()).ToList();
-        }
-
-        private void ResetState()
-        {
-            foreach (var door in _doors)
-            {
-                door.DoorState = State.Stateless;
-            }
         }
     }
 }

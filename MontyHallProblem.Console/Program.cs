@@ -31,12 +31,16 @@ namespace MontyHallProblem.Console
                 {
                     System.Console.WriteLine($"Unfortunately, there is a bike behind door {number}");
                 }
-                
+
                 System.Console.WriteLine("Press any key to continue...");
                 System.Console.ReadKey();
                 System.Console.Clear();
                 game.ResetGame();
             }
+
+            System.Console.WriteLine($"Session is finished. You have played {game.GameCount} games " +
+                                     $" wins: {game.WinCount}." +
+                                     $"\nWin rate {(double) game.WinCount / game.GameCount}.");
         }
     }
 }
