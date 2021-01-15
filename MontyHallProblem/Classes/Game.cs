@@ -39,16 +39,24 @@ namespace MontyHallProblem.Classes
 
         public IDoor SpeakerOpensDoor()
         {
-            var door = _doors.First(x => x.DoorState != State.Chosen && x.Prise != "Car");
+            var door = _doors.First(x => x.Prise == "Bike" && x.DoorState != State.Chosen);
             door.DoorState = State.Opened;
-            Console.WriteLine($"Door {_doors.IndexOf(door)} is opened and there is bike!");
+            Console.WriteLine($"Speaker opens door number {_doors.IndexOf(door)} and there is bike!");
             return door;
         }
 
         public void ResetGame()
         {
-            _doors.ForEach(x => x.DoorState = State.Stateless);
-            _doors = _doors.OrderBy(x => Guid.NewGuid()).ToList();
+            ResetState();
+            _doors = _doors.OrderBy(x => new Random().Next()).ToList();
+        }
+
+        private void ResetState()
+        {
+            foreach (var door in _doors)
+            {
+                door.DoorState = State.Stateless;
+            }
         }
     }
 }
