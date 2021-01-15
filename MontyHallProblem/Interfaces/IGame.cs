@@ -4,8 +4,7 @@
     {
         int GameCount { get; }
         int WinCount { get; set; }
-        double WinRate { get; }
-        IDoor ChooseDoor(int doorIndex);
+        IDoor UserChoosesDoor(int doorIndex);
         IDoor SpeakerOpensDoor();
         void ResetGame();
     }

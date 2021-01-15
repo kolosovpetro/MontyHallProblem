@@ -10,22 +10,20 @@ namespace MontyHallProblem.Classes
     {
         private List<Door> _doors = new List<Door>
         {
-            new Door {DoorState = State.Stateless, Prise = "Bike"},
-            new Door {DoorState = State.Stateless, Prise = "Bike"},
-            new Door {DoorState = State.Stateless, Prise = "Car"}
+            new Door {DoorState = State.Stateless, Prize = "Bike"},
+            new Door {DoorState = State.Stateless, Prize = "Bike"},
+            new Door {DoorState = State.Stateless, Prize = "Car"}
         };
 
         public int GameCount { get; }
         public int WinCount { get; set; }
-
-        public double WinRate => WinCount / GameCount * 100;
 
         public Game(int gameCount)
         {
             GameCount = gameCount;
         }
 
-        public IDoor ChooseDoor(int doorIndex)
+        public IDoor UserChoosesDoor(int doorIndex)
         {
             if (doorIndex < 0 || doorIndex > 2)
                 throw new InvalidOperationException($"Door {doorIndex} doesn't exist.");
@@ -39,7 +37,7 @@ namespace MontyHallProblem.Classes
 
         public IDoor SpeakerOpensDoor()
         {
-            var door = _doors.First(x => x.Prise == "Bike" && x.DoorState != State.Chosen);
+            var door = _doors.First(x => x.Prize == "Bike" && x.DoorState != State.Chosen);
             door.DoorState = State.Opened;
             Console.WriteLine($"Speaker opens door number {_doors.IndexOf(door)} and there is bike!");
             return door;
