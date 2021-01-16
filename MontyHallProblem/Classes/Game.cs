@@ -8,7 +8,7 @@ namespace MontyHallProblem.Classes
 {
     public class Game : IGame
     {
-        private List<Door> _doors = new List<Door>
+        private List<IDoor> _doors = new List<IDoor>
         {
             new Door {DoorState = State.Stateless, Prize = "Bike"},
             new Door {DoorState = State.Stateless, Prize = "Bike"},
@@ -35,11 +35,22 @@ namespace MontyHallProblem.Classes
             return _doors[doorIndex];
         }
 
+        public IDoor UserChoosesDoor(Func<IDoor, bool> predicate)
+        {
+            var door = _doors.First(predicate);
+            door.DoorState = State.Chosen;
+            return door;
+        }
+
+        public int IndexOfDoor(IDoor door)
+        {
+            return _doors.IndexOf(door);
+        }
+
         public IDoor SpeakerOpensDoor()
         {
             var door = _doors.First(x => x.Prize == "Bike" && x.DoorState != State.Chosen);
             door.DoorState = State.Opened;
-            Console.WriteLine($"Speaker opens door number {_doors.IndexOf(door)} and there is bike!");
             return door;
         }
 
