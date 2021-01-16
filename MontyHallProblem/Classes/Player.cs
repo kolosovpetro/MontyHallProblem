@@ -60,7 +60,7 @@ namespace MontyHallProblem.Classes
             _game.WinCount = 0;
             for (var i = 0; i < _game.GameCount; i++)
             {
-                var initialChoose = _random.Next(0, 2);
+                var initialChoose = _random.Next(0, 3);
                 _game.UserChoosesDoor(initialChoose);
                 _game.SpeakerOpensDoor();
                 var chosenDoor = _game.UserChoosesDoor(x => x.DoorState == State.Stateless);
