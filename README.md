@@ -21,9 +21,9 @@ Given a set of doors: A, B, C.
   choose (for the moment door A)
 - Since that probability that the car is somewhere behind the doors B, C is **66.6(6)%** and we know that at C there is
   no car, the probability that car is
-  behind the door B or C is: **66.6(6)%** since that it accumulates the probabilities of two doors: B + C that
-  is **66.6(6)%**
-- Therefore, it worth to change the initial choose
+  behind the door B is: **66.6(6)%** since that the door B accumulates the probabilities of two doors: B (itself) and the door C that
+  gives **66.6(6)%** of probability in total
+- Therefore, it worth to change the initial choice
 
 ## The Law of Large Numbers
 
