@@ -6,37 +6,37 @@ namespace MontyHallProblem.Classes
 {
     public class Player : IPlayer
     {
-        private readonly Game _game;
+        public IGame Game { get; }
         private readonly Random _random;
 
-        public Player(Game game)
+        public Player(IGame game)
         {
-            _game = game;
+            Game = game;
             _random = new Random();
         }
 
         public void ManualPlay()
         {
-            _game.WinCount = 0;
-            for (var i = 0; i < _game.GameCount; i++)
+            Game.WinCount = 0;
+            for (var i = 0; i < Game.GameCount; i++)
             {
-                Console.WriteLine($"Games played: {i} out of {_game.GameCount}. Wins: {_game.WinCount}");
+                Console.WriteLine($"Games played: {i} out of {Game.GameCount}. Wins: {Game.WinCount}");
                 Console.WriteLine("You have three doors, type number you choose (0,1,2): ");
                 var number = int.Parse(Console.ReadLine()!);
                 Console.WriteLine($"You have chosen: {number}");
-                _game.UserChoosesDoor(number);
-                var speakerOpensDoor = _game.SpeakerOpensDoor();
-                Console.WriteLine($"Speaker opens door number {_game.IndexOfDoor(speakerOpensDoor)} " +
+                Game.UserChoosesDoor(number);
+                var speakerOpensDoor = Game.SpeakerOpensDoor();
+                Console.WriteLine($"Speaker opens door number {Game.IndexOfDoor(speakerOpensDoor)} " +
                                   "and there is bike!");
                 Console.WriteLine($"Would you like to change you choose {number}?");
                 Console.WriteLine("If not, type same number.");
                 number = int.Parse(Console.ReadLine()!);
                 Console.WriteLine($"You have chosen: {number}");
-                var userDoor = _game.UserChoosesDoor(number);
+                var userDoor = Game.UserChoosesDoor(number);
 
                 if (userDoor.Prize == "Car")
                 {
-                    _game.WinCount++;
+                    Game.WinCount++;
                     Console.WriteLine($"Congrats, you won a car. Door {number} is correct.");
                 }
                 else
@@ -46,34 +46,41 @@ namespace MontyHallProblem.Classes
 
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
+
                 Console.Clear();
-                _game.ResetGame();
+
+                Game.ResetGame();
             }
 
-            Console.WriteLine($"Session is finished. You have played {_game.GameCount} games " +
-                                     $" wins: {_game.WinCount}." +
-                                     $"\nWin rate {(double) _game.WinCount / _game.GameCount}.");
+            Console.WriteLine($"Session is finished. You have played {Game.GameCount} games " +
+                              $" wins: {Game.WinCount}." +
+                              $"\nWin rate {Game.WinRate}.");
         }
 
         public void AutoPlay()
         {
-            _game.WinCount = 0;
-            for (var i = 0; i < _game.GameCount; i++)
+            Game.WinCount = 0;
+
+            for (var i = 0; i < Game.GameCount; i++)
             {
                 var initialChoose = _random.Next(0, 3);
-                _game.UserChoosesDoor(initialChoose);
-                _game.SpeakerOpensDoor();
-                var chosenDoor = _game.UserChoosesDoor(x => x.DoorState == State.Stateless);
+
+                Game.UserChoosesDoor(initialChoose);
+                Game.SpeakerOpensDoor();
+
+                var chosenDoor = Game.UserChoosesDoor(x => x.DoorState == State.Initial);
+
                 if (chosenDoor.Prize == "Car")
                 {
-                    _game.WinCount++;
+                    Game.WinCount++;
                 }
-                _game.ResetGame();
+
+                Game.ResetGame();
             }
-            
-            Console.WriteLine($"Session is finished. You have played {_game.GameCount} games " +
-                              $" wins: {_game.WinCount}." +
-                              $"\nWin rate {(double) _game.WinCount / _game.GameCount}.");
+
+            Console.WriteLine($"Session is finished. You have played {Game.GameCount} games " +
+                              $" wins: {Game.WinCount}." +
+                              $"\nWin rate {Game.WinRate} or {Game.WinRatePercentage}.");
         }
     }
 }

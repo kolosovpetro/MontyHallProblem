@@ -4,6 +4,6 @@
     {
         Chosen,
         Opened,
-        Stateless
+        Initial
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MontyHallProblem.Classes;
+using MontyHallProblem.Interfaces;
 
 namespace MontyHallProblem.Console
 {
@@ -6,7 +7,8 @@ namespace MontyHallProblem.Console
     {
         private static void Main()
         {
-            var player = new Player(new Game(1_000_000));
+            IGame game = new Game(1_000_000);
+            var player = new Player(game);
             player.AutoPlay();
         }
     }
