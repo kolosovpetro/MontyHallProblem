@@ -9,7 +9,11 @@ namespace MontyHallProblem.Console
         {
             IGame game = new Game(1_000_000);
             var player = new Player(game);
-            player.AutoPlay();
+            player.AutoPlay(shouldChangeChoice: true);
+
+            game.ResetGame();
+
+            player.AutoPlay(shouldChangeChoice: false);
         }
     }
 }

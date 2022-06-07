@@ -21,7 +21,7 @@ Given a set of doors: A, B, C.
   choose (for the moment door A)
 - Since that probability that the car is somewhere behind the doors B, C is **66.6(6)%** and we know that at C there is
   no car, the probability that car is
-  behind the door B or C is: **66.6(6)%** since that it accumulates the probabilities of two doors: A + B, A + C that
+  behind the door B or C is: **66.6(6)%** since that it accumulates the probabilities of two doors: B + C that
   is **66.6(6)%**
 - Therefore, it worth to change the initial choose
 
