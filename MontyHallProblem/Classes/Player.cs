@@ -6,7 +6,7 @@ namespace MontyHallProblem.Classes
 {
     public class Player : IPlayer
     {
-        public IGame Game { get; }
+        private IGame Game { get; }
         private readonly Random _random;
 
         public Player(IGame game)
@@ -57,7 +57,7 @@ namespace MontyHallProblem.Classes
                               $"\nWin rate {Game.WinRate}.");
         }
 
-        public void AutoPlay()
+        public void AutoPlay(bool shouldChangeChoice)
         {
             Game.WinCount = 0;
 
@@ -68,9 +68,11 @@ namespace MontyHallProblem.Classes
                 Game.UserChoosesDoor(initialChoose);
                 Game.SpeakerOpensDoor();
 
-                var chosenDoor = Game.UserChoosesDoor(x => x.DoorState == State.Initial);
+                var chosenDoor = shouldChangeChoice
+                    ? Game.UserChoosesDoor(DoorState.Initial)
+                    : Game.UserChoosesDoor(DoorState.Chosen);
 
-                if (chosenDoor.Prize == "Car")
+                if (chosenDoor.Prize == Classes.Game.Car)
                 {
                     Game.WinCount++;
                 }
@@ -78,9 +80,15 @@ namespace MontyHallProblem.Classes
                 Game.ResetGame();
             }
 
-            Console.WriteLine($"Session is finished. You have played {Game.GameCount} games " +
-                              $" wins: {Game.WinCount}." +
-                              $"\nWin rate {Game.WinRate} or {Game.WinRatePercentage}.");
+            var strategyName = shouldChangeChoice
+                ? "To change the initial choose upon request"
+                : "Not to change the initial choose upon request";
+
+            Console.WriteLine($"Session is finished. \n" +
+                              $"Strategy: {strategyName} \n" +
+                              $"You have played {Game.GameCount} games " +
+                              $"wins: {Game.WinCount}." +
+                              $"\nWin rate {Game.WinRate} or {Game.WinRatePercentage}. \n");
         }
     }
 }

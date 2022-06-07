@@ -1,4 +1,5 @@
 ﻿using System;
+using MontyHallProblem.Enums;
 
 namespace MontyHallProblem.Interfaces
 {
@@ -14,7 +15,7 @@ namespace MontyHallProblem.Interfaces
 
         IDoor UserChoosesDoor(int doorIndex);
         
-        IDoor UserChoosesDoor(Func<IDoor, bool> predicate);
+        IDoor UserChoosesDoor(DoorState doorState);
         
         int IndexOfDoor(IDoor door);
         

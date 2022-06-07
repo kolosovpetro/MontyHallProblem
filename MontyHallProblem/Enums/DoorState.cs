@@ -1,6 +1,6 @@
 ﻿namespace MontyHallProblem.Enums
 {
-    public enum State
+    public enum DoorState
     {
         Chosen,
         Opened,

@@ -8,14 +8,14 @@ namespace MontyHallProblem.Classes
 {
     public class Game : IGame
     {
-        private const string Goat = "Goat";
-        private const string Car = "Car";
+        public const string Goat = "Goat";
+        public const string Car = "Car";
 
         private List<IDoor> _doors = new List<IDoor>
         {
-            new Door { DoorState = State.Initial, Prize = Goat },
-            new Door { DoorState = State.Initial, Prize = Goat },
-            new Door { DoorState = State.Initial, Prize = Car }
+            new Door { DoorState = DoorState.Initial, Prize = Goat },
+            new Door { DoorState = DoorState.Initial, Prize = Goat },
+            new Door { DoorState = DoorState.Initial, Prize = Car }
         };
 
         public int GameCount { get; }
@@ -37,20 +37,20 @@ namespace MontyHallProblem.Classes
                 throw new InvalidOperationException($"Door {doorIndex} doesn't exist.");
             }
 
-            if (_doors[doorIndex].DoorState == State.Opened)
+            if (_doors[doorIndex].DoorState == DoorState.Opened)
             {
                 throw new InvalidOperationException("Door is already opened by the speaker.");
             }
 
-            _doors[doorIndex].DoorState = State.Chosen;
+            _doors[doorIndex].DoorState = DoorState.Chosen;
             return _doors[doorIndex];
         }
 
-        public IDoor UserChoosesDoor(Func<IDoor, bool> predicate)
+        public IDoor UserChoosesDoor(DoorState state)
         {
-            var door = _doors.First(predicate);
+            var door = _doors.First(x => x.DoorState == state);
 
-            door.DoorState = State.Chosen;
+            door.DoorState = DoorState.Chosen;
 
             return door;
         }
@@ -62,16 +62,16 @@ namespace MontyHallProblem.Classes
 
         public IDoor SpeakerOpensDoor()
         {
-            var door = _doors.First(x => x.Prize == Goat && x.DoorState != State.Chosen);
+            var door = _doors.First(x => x.Prize == Goat && x.DoorState != DoorState.Chosen);
 
-            door.DoorState = State.Opened;
+            door.DoorState = DoorState.Opened;
 
             return door;
         }
 
         public void ResetGame()
         {
-            _doors.ForEach(x => x.DoorState = State.Initial);
+            _doors.ForEach(x => x.DoorState = DoorState.Initial);
 
             _doors = _doors.OrderBy(x => new Random().Next()).ToList();
         }

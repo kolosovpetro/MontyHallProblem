@@ -3,6 +3,6 @@
     public interface IPlayer
     {
         void ManualPlay();
-        void AutoPlay();
+        void AutoPlay(bool shouldChangeChoice);
     }
 }
