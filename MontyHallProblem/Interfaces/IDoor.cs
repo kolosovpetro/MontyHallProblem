@@ -1,10 +1,9 @@
 ﻿using MontyHallProblem.Enums;
 
-namespace MontyHallProblem.Interfaces
+namespace MontyHallProblem.Interfaces;
+
+public interface IDoor
 {
-    public interface IDoor
-    {
-        DoorState DoorState { get; set; }
-        string Prize { get; set; }
-    }
+    DoorState DoorState { get; set; }
+    string Prize { get; set; }
 }
