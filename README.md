@@ -1,5 +1,6 @@
 # Monty Hall Problem
 
+[![Build and Test](https://github.com/kolosovpetro/MontyHallProblem/actions/workflows/run-build-and-test-dotnet.yml/badge.svg)](https://github.com/kolosovpetro/MontyHallProblem/actions/workflows/run-build-and-test-dotnet.yml)
 [![Coverage Status](https://coveralls.io/repos/github/kolosovpetro/MontyHallProblem/badge.svg?branch=develop)](https://coveralls.io/github/kolosovpetro/MontyHallProblem?branch=develop)
 
 
