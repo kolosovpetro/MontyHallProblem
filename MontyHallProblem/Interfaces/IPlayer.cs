@@ -1,8 +1,7 @@
-﻿namespace MontyHallProblem.Interfaces
+﻿namespace MontyHallProblem.Interfaces;
+
+public interface IPlayer
 {
-    public interface IPlayer
-    {
-        void ManualPlay();
-        void AutoPlay(bool shouldChangeChoice);
-    }
+    void ManualPlay();
+    void AutoPlay(bool shouldChangeChoice);
 }

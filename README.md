@@ -1,5 +1,9 @@
 # Monty Hall Problem
 
+[![Build and Test](https://github.com/kolosovpetro/MontyHallProblem/actions/workflows/run-build-and-test-dotnet.yml/badge.svg)](https://github.com/kolosovpetro/MontyHallProblem/actions/workflows/run-build-and-test-dotnet.yml)
+[![Coverage Status](https://coveralls.io/repos/github/kolosovpetro/MontyHallProblem/badge.svg?branch=develop)](https://coveralls.io/github/kolosovpetro/MontyHallProblem?branch=develop)
+
+
 The Monty Hall problem is a brain teaser, in the form of a probability puzzle, loosely based on the American television
 game show Let's Make a Deal and named after its original host, Monty Hall. The problem was originally posed (and solved)
 in a letter by Steve Selvin to the American Statistician in 1975. It became famous as a question from reader Craig
@@ -21,9 +25,9 @@ Given a set of doors: A, B, C.
   choose (for the moment door A)
 - Since that probability that the car is somewhere behind the doors B, C is **66.6(6)%** and we know that at C there is
   no car, the probability that car is
-  behind the door B or C is: **66.6(6)%** since that it accumulates the probabilities of two doors: B + C that
-  is **66.6(6)%**
-- Therefore, it worth to change the initial choose
+  behind the door B is: **66.6(6)%** since that the door B accumulates the probabilities of two doors: B (itself) and the door C that
+  gives **66.6(6)%** of probability in total
+- Therefore, it worth to change the initial choice
 
 ## The Law of Large Numbers
 

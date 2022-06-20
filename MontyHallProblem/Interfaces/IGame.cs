@@ -1,26 +1,25 @@
 ﻿using System;
 using MontyHallProblem.Enums;
 
-namespace MontyHallProblem.Interfaces
+namespace MontyHallProblem.Interfaces;
+
+public interface IGame
 {
-    public interface IGame
-    {
-        int GameCount { get; }
+    int GameCount { get; }
         
-        int WinCount { get; set; }
+    int WinCount { get; set; }
 
-        double WinRate { get; }
+    double WinRate { get; }
         
-        string WinRatePercentage { get; }
+    string WinRatePercentage { get; }
 
-        IDoor UserChoosesDoor(int doorIndex);
+    IDoor UserChoosesDoor(int doorIndex);
         
-        IDoor UserChoosesDoor(DoorState doorState);
+    IDoor UserChoosesDoor(DoorState doorState);
         
-        int IndexOfDoor(IDoor door);
+    int IndexOfDoor(IDoor door);
         
-        IDoor SpeakerOpensDoor();
+    IDoor SpeakerOpensDoor();
         
-        void ResetGame();
-    }
+    void ResetGame();
 }

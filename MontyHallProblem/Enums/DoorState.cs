@@ -1,9 +1,8 @@
-﻿namespace MontyHallProblem.Enums
+﻿namespace MontyHallProblem.Enums;
+
+public enum DoorState
 {
-    public enum DoorState
-    {
-        Chosen,
-        Opened,
-        Initial
-    }
+    Chosen,
+    Opened,
+    Initial
 }

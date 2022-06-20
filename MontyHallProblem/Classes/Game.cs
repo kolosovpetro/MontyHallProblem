@@ -4,76 +4,75 @@ using System.Linq;
 using MontyHallProblem.Enums;
 using MontyHallProblem.Interfaces;
 
-namespace MontyHallProblem.Classes
+namespace MontyHallProblem.Classes;
+
+public class Game : IGame
 {
-    public class Game : IGame
+    public const string Goat = "Goat";
+    public const string Car = "Car";
+
+    private List<IDoor> _doors = new List<IDoor>
     {
-        public const string Goat = "Goat";
-        public const string Car = "Car";
+        new Door { DoorState = DoorState.Initial, Prize = Goat },
+        new Door { DoorState = DoorState.Initial, Prize = Goat },
+        new Door { DoorState = DoorState.Initial, Prize = Car }
+    };
 
-        private List<IDoor> _doors = new List<IDoor>
+    public int GameCount { get; }
+    public int WinCount { get; set; }
+
+    public Game(int gameCount)
+    {
+        GameCount = gameCount;
+    }
+
+    public double WinRate => (double)WinCount / GameCount;
+
+    public string WinRatePercentage => $"{(int)(WinRate * 100)}%";
+
+    public IDoor UserChoosesDoor(int doorIndex)
+    {
+        if (doorIndex < 0 || doorIndex > 2)
         {
-            new Door { DoorState = DoorState.Initial, Prize = Goat },
-            new Door { DoorState = DoorState.Initial, Prize = Goat },
-            new Door { DoorState = DoorState.Initial, Prize = Car }
-        };
-
-        public int GameCount { get; }
-        public int WinCount { get; set; }
-
-        public Game(int gameCount)
-        {
-            GameCount = gameCount;
+            throw new InvalidOperationException($"Door {doorIndex} doesn't exist.");
         }
 
-        public double WinRate => (double)WinCount / GameCount;
-
-        public string WinRatePercentage => $"{(int)(WinRate * 100)}%";
-
-        public IDoor UserChoosesDoor(int doorIndex)
+        if (_doors[doorIndex].DoorState == DoorState.Opened)
         {
-            if (doorIndex < 0 || doorIndex > 2)
-            {
-                throw new InvalidOperationException($"Door {doorIndex} doesn't exist.");
-            }
-
-            if (_doors[doorIndex].DoorState == DoorState.Opened)
-            {
-                throw new InvalidOperationException("Door is already opened by the speaker.");
-            }
-
-            _doors[doorIndex].DoorState = DoorState.Chosen;
-            return _doors[doorIndex];
+            throw new InvalidOperationException("Door is already opened by the speaker.");
         }
 
-        public IDoor UserChoosesDoor(DoorState state)
-        {
-            var door = _doors.First(x => x.DoorState == state);
+        _doors[doorIndex].DoorState = DoorState.Chosen;
+        return _doors[doorIndex];
+    }
 
-            door.DoorState = DoorState.Chosen;
+    public IDoor UserChoosesDoor(DoorState state)
+    {
+        var door = _doors.First(x => x.DoorState == state);
 
-            return door;
-        }
+        door.DoorState = DoorState.Chosen;
 
-        public int IndexOfDoor(IDoor door)
-        {
-            return _doors.IndexOf(door);
-        }
+        return door;
+    }
 
-        public IDoor SpeakerOpensDoor()
-        {
-            var door = _doors.First(x => x.Prize == Goat && x.DoorState != DoorState.Chosen);
+    public int IndexOfDoor(IDoor door)
+    {
+        return _doors.IndexOf(door);
+    }
 
-            door.DoorState = DoorState.Opened;
+    public IDoor SpeakerOpensDoor()
+    {
+        var door = _doors.First(x => x.Prize == Goat && x.DoorState != DoorState.Chosen);
 
-            return door;
-        }
+        door.DoorState = DoorState.Opened;
 
-        public void ResetGame()
-        {
-            _doors.ForEach(x => x.DoorState = DoorState.Initial);
+        return door;
+    }
 
-            _doors = _doors.OrderBy(x => new Random().Next()).ToList();
-        }
+    public void ResetGame()
+    {
+        _doors.ForEach(x => x.DoorState = DoorState.Initial);
+
+        _doors = _doors.OrderBy(x => new Random().Next()).ToList();
     }
 }
