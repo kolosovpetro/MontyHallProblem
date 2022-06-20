@@ -1,4 +1,4 @@
-﻿name: Run Build and Test (.NET, Angular)
+﻿name: Build and Test
 
 on:
   push:
