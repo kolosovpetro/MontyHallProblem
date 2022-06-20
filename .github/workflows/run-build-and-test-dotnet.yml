@@ -1,0 +1,37 @@
+﻿name: Run Build and Test (.NET, Angular)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📝 Fetch Sources 📝
+        uses: actions/checkout@v2
+
+      - name: ⚙ Setup .NET 6.0 SDK ⚙
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: 🔄 Restore Nuget Packages 🔄
+        run: dotnet restore
+
+      - name: 🛠 Build .NET Solution 🛠
+        run: dotnet build --no-restore /p:ContinuousIntegrationBuild=true
+
+      - name: ✅ Run Unit Tests (Coveralls) ✅
+        run: |
+          dotnet test MontyHallProblem.Tests/MontyHallProblem.Tests.csproj  /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+      - name: ✨ Publish coverage report to Coveralls ✨
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: MontyHallProblem.Tests/TestResults/coverage.info
