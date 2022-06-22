@@ -1,0 +1,27 @@
+steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET 6.x SDK'
+    inputs:
+      packageType: sdk
+      version: 6.x
+
+  - task: NuGetToolInstaller@1
+    displayName: 'Install Nuget'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore Nuget Packages'
+    inputs:
+      restoreSolution: 'MontyHallProblem.sln'
+
+  - task: DotNetCoreCLI@2
+    displayName: '.NET Build'
+    inputs:
+      command: 'build'
+      arguments: '--no-restore /p:ContinuousIntegrationBuild=true'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Run .NET unit tests'
+    inputs:
+      command: 'test'
+      projects: 'dotnet test MontyHallProblem.Tests/MontyHallProblem.Tests.csproj'
+      arguments: '/p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov'

@@ -1,0 +1,11 @@
+trigger: none
+stages:
+  - stage: 'Build_Test'
+    jobs:
+      - job: "Build"
+        displayName: 'Build and Test'
+        pool:
+          vmImage: 'ubuntu-latest'
+        
+        steps:
+          - template: azure-pipelines-common.yml

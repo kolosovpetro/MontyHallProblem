@@ -24,6 +24,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\run-build-and-test-dotnet.yml = .github\workflows\run-build-and-test-dotnet.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure", "azure", "{F2B38D20-7123-4044-A6CA-219BE4A2DEFB}"
+	ProjectSection(SolutionItems) = preProject
+		azure\azure-pipelines.yml = azure\azure-pipelines.yml
+		azure\azure-pipelines-common.yml = azure\azure-pipelines-common.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
