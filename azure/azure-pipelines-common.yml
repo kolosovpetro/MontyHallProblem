@@ -23,5 +23,5 @@ steps:
     displayName: 'Run .NET unit tests'
     inputs:
       command: 'test'
-      projects: 'dotnet test MontyHallProblem.Tests/MontyHallProblem.Tests.csproj'
+      projects: 'MontyHallProblem.Tests/MontyHallProblem.Tests.csproj'
       arguments: '/p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov'
